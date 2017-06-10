@@ -22,23 +22,98 @@ using System.Text.RegularExpressions;
 namespace DelekOPTSimulation
 {
     public partial class Main : Form
-    {    
+    {
+        //menu
+        public int menuindex = 1;
+        public int maxmenu = 6;
+        public int selectmenu = 1;
+        public int menupage = 1;
+        public int maxpage = 1;
+        public enum MenuType
+        {
+            None,
+            Attendant,
+            ShiftMng,
+            DryList,
+            OtherMOP,
+            TBD
+        };
+
+        public MenuType currentmenu = MenuType.None;
+        public void MarkMenu(int index, bool bMark)
+        {
+            int i;
+
+            i = index % 9;
+            invenco.MarkMenu(index, bMark);
+        }
+
+        public void SetMenu(string text, int index)
+        {
+            int i;
+            i = index % 9;
+            invenco.SetMenu(text, index);
+        }
+
+        public void ClearMenu()
+        {
+            
+            invenco.ClearMenu();
+            
+        }
+
+        
+        public void StartMenu(MenuType menu,Boolean bStart)
+        {
+            currentmenu = menu;
+
+            switch (currentmenu)
+            {
+                case MenuType.Attendant:
+                    if (bStart) 
+                        menupage = 1;
+                    maxpage = 2;
+                    BuildAndSetAttnMenu();
+                    break;
+                case MenuType.ShiftMng:
+                    if (bStart)
+                        menupage = 1;
+                    maxpage = 1;
+                    BuildAndSetShiftMenu();
+                    break;
+                case MenuType.OtherMOP:
+                    if (bStart)
+                        menupage = 1;
+                    maxpage = 1;
+                    BuildOtherMOPMenu();
+                    break;
+            };
+        }
+
         public void BuildAndSetAttnMenu()
         {
             //the menu is set - TBD according to actual action
-            SetMenu("מכירות", 1);
-            SetMenu("קבלה אחרונה", 2);
-            SetMenu("הפקדה לכספת", 3);           
-            SetMenu("ניהול משמרות", 4);
-            SetMenu("התעלם מדלקן", 5);
-            SetMenu("אישור דלקן חריג", 6);
-            SetMenu("החזרות", 7);
-            SetMenu("הדפס הפקדה אחרונה", 8);
+            if (menupage == 1)
+            {
+                SetMenu("מכירות", 1);
+                SetMenu("קבלה אחרונה", 2);
+                SetMenu("הפקדה לכספת", 3);
+                SetMenu("ניהול משמרות", 4);
+                SetMenu("התעלם מדלקן", 5);
+                SetMenu("אישור דלקן חריג", 6);
+                SetMenu("החזרות", 7);
+                SetMenu("הדפס הפקדה אחרונה", 8);
+                maxmenu = 8;
+            }
+            if (menupage == 2)
+            {
+                SetMenu("ניקוז אויר", 1);
+                SetMenu("Page 2/2", 2);
+                maxmenu = 2;
+            }
             menuindex = 1;
-            maxmenu = 8;
-            menupage = 1;
+            
 
-            currentmenu = MenuType.Attendant;
 
             MarkMenu(menuindex, true);
         }
@@ -85,28 +160,52 @@ namespace DelekOPTSimulation
             switch (currentmenu)
             {
                 case MenuType.Attendant:
-                    switch (menuindex)
+                    switch (menupage)
                     {
                         case 1:
-                            action = States.DrySale;
-                            SetState(States.RequestAttn);
+                            switch (menuindex)
+                            {
+                                case 1:
+                                    action = States.DrySale;
+                                    SetState(States.RequestAttn);
+                                    break;
+                                case 2:
+                                    SetState(States.PrintingRecipt);
+                                    break;
+                                case 3:
+                                    action = States.SafeDrop;
+                                    SetState(States.RequestAttn);
+                                    break;
+                                case 4:
+
+                                    BuildAndSetShiftMenu();
+                                    SetState(States.MenuMode);
+                                    break;
+                                case 5: //ignore VIS
+                                    break;
+                                case 6: //VIS excpetion
+                                    break;
+                                case 7: //returns
+                                    break;
+                                case 8:
+                                    SetState(States.PrintingRecipt);
+                                    break;
+                            }
                             break;
                         case 2:
-                            SetState(States.PrintingRecipt);
-                            break;
-                        case 3:
-                            action = States.SafeDrop;
-                            SetState(States.RequestAttn);
-                            break;
-                        case 4:
-                            
-                            BuildAndSetShiftMenu();
-                            SetState(States.MenuMode);
-                            break;
-                        case 8:
-                            SetState(States.PrintingRecipt);
+                            switch (menuindex)
+                            {
+                                case 1:
+                                    action = States.AirDrange;
+                                    SetState(States.AirDrange);
+                                    break;
+                                case 2:
+                                    SetState(States.PrintingRecipt);
+                                    break;
+                            }
                             break;
                     }
+
                 break;
 
                 case MenuType.ShiftMng:

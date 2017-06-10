@@ -1,5 +1,5 @@
 ﻿Version 2.0
-* Change menu type
+* Change menu type - multi pages
 * Support Multi pump
 * Safe drop required
 * Safe drop warnning
@@ -13,10 +13,17 @@
 * Clock in /  out
 * Closing shift including open trans error and busy pumps
 * No comm to TR error (close shift, X Report)
+* Air dranage - menu 9
+* Do not ask ID in Full service (fix)
+* Error on no credit
+* Request plate before ID
+* Limit money only in Self
+* Manager approval for drop - flag
+* Other MOP as serial entry
 
 
 
 
 
 Version 1.0
-Initail version
+* Initail version

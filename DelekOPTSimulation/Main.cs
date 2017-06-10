@@ -81,6 +81,9 @@ namespace DelekOPTSimulation
         Err_BusyPumps,
         Err_CommShift,
         Err_CommXReport,
+        Err_BadCredit,
+        AirDrange,
+        ManApprovalDrop,
         TBD
     };
 
@@ -145,22 +148,7 @@ namespace DelekOPTSimulation
         public int dropAmount;
         public bool bChangeMOP = false;
         public bool bCreditGiven = false;
-        //menu
-        public int menuindex = 1;
-        public int maxmenu = 6;
-        public int selectmenu = 1;
-        public int menupage = 1;
-        public enum MenuType
-        {
-            None,
-            Attendant,
-            ShiftMng,
-            DryList,
-            OtherMOP,
-            TBD
-        };
-
-        public MenuType currentmenu = MenuType.None;
+        
 
         public bool bCashPay = true;
         public bool bFuelIncluded = false;
@@ -272,9 +260,20 @@ namespace DelekOPTSimulation
                         SetState(States.LiftNoz);
                     break;
                 case States.CardCheck:
+                    if (BadCredit.Checked)
+                    {
+                        SetState(States.Err_BadCredit);
+                        SetShortMessage();
+                        return;
+                    }
                     if (bDrySale || bChangeMOP)
                     {
                         SetState(States.PrintingRecipt);
+                    }
+                    else
+                    if (action != States.TBD)
+                    {
+                        SetState(action);
                     }
                     else
                     {
@@ -393,27 +392,14 @@ namespace DelekOPTSimulation
             invenco.SetLines(l1, l2, l3, l4, marked);
         }
 
-        public void MarkMenu(int index, bool bMark)
-        {
-            invenco.MarkMenu(index, bMark);
-        }
-
-        public void SetMenu(string text, int index)
-        {
-            invenco.SetMenu(text, index);
-        }
+        
 
         public void SetMultiPump(int Pump)
         {
             invenco.SetMultiPump(Pump);
         }
 
-        public void ClearMenu()
-        {
-            //MarkMenu(menuindex, false);
-            //menuindex = 0;
-            invenco.ClearMenu();
-        }
+        
 
 
         private void SetOPTState(States state)
@@ -454,6 +440,8 @@ namespace DelekOPTSimulation
                     bChangeMOP = false;
                     bCreditGiven = false;
                     totalsale = 0;
+                    action = States.TBD;
+                    bCashPay = false; //always with credit for Self service
                     break;
                 case States.FSIdle:
                     state = States.FSIdle;
@@ -465,6 +453,7 @@ namespace DelekOPTSimulation
                     bCreditGiven = false;
                     bFuelIncluded = false;
                     totalsale = 0;
+                    action = States.TBD;
                     //example of calling Javascript with params
                     //object[] o = new object[1];
                     //o[0]="My application is here";
@@ -497,9 +486,7 @@ namespace DelekOPTSimulation
                     break;
                 case States.CardCheck:
                     state = States.CardCheck;
-                    image = "CardCheck.jpg";
-                    myTimer.Interval = 2000;
-                    myTimer.Start();
+                    SetShortMessage();
                     break;
                 case States.VISCheking:
                     state = States.VISCheking;
@@ -765,6 +752,18 @@ namespace DelekOPTSimulation
                     state = States.CloseingShift;
                     SetShortMessage();
                     break;
+                case States.AirDrange:
+                    state = States.AirDrange;
+                    break;
+                case States.Err_BadCredit:
+                    state = States.Err_BadCredit;
+                    break;
+                case States.ManApprovalDrop:
+                    state = States.ManApprovalDrop;
+                    break;
+                case States.RequestSerailMOP:
+                    state = States.RequestSerailMOP;
+                    break;
 
             }
 
@@ -897,6 +896,11 @@ namespace DelekOPTSimulation
             {
                 isNozUp = false;
                 Noz.Image = DelekOPTSimulation.Properties.Resources.PicNozzDown;
+                if (action == States.AirDrange) //just print ticket
+                {
+                    SetState(States.Receipt);
+                    return;
+                }
                 if (state == States.Fueling || state == States.TestFuel)
                 {
                     if (Self.Checked)
@@ -915,6 +919,11 @@ namespace DelekOPTSimulation
                 Noz.Image = DelekOPTSimulation.Properties.Resources.LogNozzUp;
                 if (state == States.LiftNoz)
                 { 
+                    if (action == States.AirDrange)
+                    {
+                        SetState(States.Fueling);
+                        return;
+                    }
                     //check if selected nozzel is correct
                     if (CardTypes.LAM == GetCardType() && F95.Checked)
                     {

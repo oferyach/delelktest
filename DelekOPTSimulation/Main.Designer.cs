@@ -54,8 +54,6 @@
             this.CurrentImage = new System.Windows.Forms.TextBox();
             this.FileVersion = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.OtherMOP = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.MultiPump = new System.Windows.Forms.CheckBox();
             this.VIUAttn = new System.Windows.Forms.CheckBox();
@@ -66,6 +64,8 @@
             this.OpenTrans = new System.Windows.Forms.CheckBox();
             this.FuelingNow = new System.Windows.Forms.CheckBox();
             this.CommErrTR = new System.Windows.Forms.CheckBox();
+            this.ManagerForDrop = new System.Windows.Forms.CheckBox();
+            this.BadCredit = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.Pump.SuspendLayout();
@@ -139,14 +139,14 @@
             this.groupBox2.Location = new System.Drawing.Point(384, 131);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox2.Size = new System.Drawing.Size(318, 146);
+            this.groupBox2.Size = new System.Drawing.Size(318, 246);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "הכנס כרטיס / הצג תג / דלקן";
             // 
             // CardTag
             // 
-            this.CardTag.Location = new System.Drawing.Point(6, 109);
+            this.CardTag.Location = new System.Drawing.Point(11, 197);
             this.CardTag.Name = "CardTag";
             this.CardTag.Size = new System.Drawing.Size(75, 23);
             this.CardTag.TabIndex = 37;
@@ -164,11 +164,12 @@
             "כב\"ת + כל הפרומפט",
             "מנהל",
             "כרטיס פגום",
-            "דלקן"});
+            "דלקן",
+            "אמצאי סרילי"});
             this.CardType.Location = new System.Drawing.Point(87, 19);
             this.CardType.Name = "CardType";
             this.CardType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.CardType.Size = new System.Drawing.Size(226, 95);
+            this.CardType.Size = new System.Drawing.Size(226, 160);
             this.CardType.TabIndex = 36;
             // 
             // Pump
@@ -356,24 +357,6 @@
             this.panel1.Size = new System.Drawing.Size(706, 1);
             this.panel1.TabIndex = 36;
             // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(544, 310);
-            this.label2.Name = "label2";
-            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(156, 13);
-            this.label2.TabIndex = 37;
-            this.label2.Text = "רשימת אמצאי אחר:";
-            // 
-            // OtherMOP
-            // 
-            this.OtherMOP.Location = new System.Drawing.Point(384, 307);
-            this.OtherMOP.Name = "OtherMOP";
-            this.OtherMOP.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.OtherMOP.Size = new System.Drawing.Size(191, 20);
-            this.OtherMOP.TabIndex = 38;
-            this.OtherMOP.Text = "סלב, TMC";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -482,6 +465,28 @@
             this.CommErrTR.Text = "אין תקשורת ל TR";
             this.CommErrTR.UseVisualStyleBackColor = true;
             // 
+            // ManagerForDrop
+            // 
+            this.ManagerForDrop.AutoSize = true;
+            this.ManagerForDrop.Location = new System.Drawing.Point(226, 307);
+            this.ManagerForDrop.Name = "ManagerForDrop";
+            this.ManagerForDrop.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ManagerForDrop.Size = new System.Drawing.Size(127, 17);
+            this.ManagerForDrop.TabIndex = 49;
+            this.ManagerForDrop.Text = "נדרש מנהל להפקדה";
+            this.ManagerForDrop.UseVisualStyleBackColor = true;
+            // 
+            // BadCredit
+            // 
+            this.BadCredit.AutoSize = true;
+            this.BadCredit.Location = new System.Drawing.Point(235, 334);
+            this.BadCredit.Name = "BadCredit";
+            this.BadCredit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.BadCredit.Size = new System.Drawing.Size(118, 17);
+            this.BadCredit.TabIndex = 50;
+            this.BadCredit.Text = "אשראי לא מאושר";
+            this.BadCredit.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,6 +494,8 @@
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(724, 762);
             this.ControlBox = false;
+            this.Controls.Add(this.BadCredit);
+            this.Controls.Add(this.ManagerForDrop);
             this.Controls.Add(this.CommErrTR);
             this.Controls.Add(this.FuelingNow);
             this.Controls.Add(this.OpenTrans);
@@ -499,8 +506,6 @@
             this.Controls.Add(this.VIUAttn);
             this.Controls.Add(this.MultiPump);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.OtherMOP);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.FileVersion);
             this.Controls.Add(this.CurrentImage);
@@ -554,8 +559,6 @@
         public System.Windows.Forms.TextBox CurrentImage;
         private System.Windows.Forms.Label FileVersion;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox OtherMOP;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.CheckBox MultiPump;
         public System.Windows.Forms.CheckBox VIUAttn;
@@ -566,6 +569,8 @@
         public System.Windows.Forms.CheckBox OpenTrans;
         public System.Windows.Forms.CheckBox FuelingNow;
         public System.Windows.Forms.CheckBox CommErrTR;
+        public System.Windows.Forms.CheckBox ManagerForDrop;
+        public System.Windows.Forms.CheckBox BadCredit;
     }
 }
 

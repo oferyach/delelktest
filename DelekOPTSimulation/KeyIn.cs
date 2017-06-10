@@ -41,7 +41,7 @@ namespace DelekOPTSimulation
                     }                    
                     if (key == 'B')
                     {
-                        SetState(States.LimitVolume);  //TBD any limit
+                        SetState(States.LimitMoney);  
                     }
                     if (key == 'C')
                     {
@@ -68,8 +68,8 @@ namespace DelekOPTSimulation
                     break;
                 case States.FSIdle:
                     if (key == 'C')  //man FS menu
-                    {                        
-                        BuildAndSetAttnMenu();
+                    {
+                        StartMenu(MenuType.Attendant,true);
                         SetState(States.MenuMode);
                     }
                     if (key == 'A')
@@ -132,7 +132,18 @@ namespace DelekOPTSimulation
                         if (CheckIDNo(indata))
                         {
                             UpdatePrompt("$");  //clear
-                            SetState(States.Plate);
+                            if (CardTypes.LAMPrompts == GetCardType())
+                                SetState(States.Odometer);
+                            else if (bCashPay)
+                            {
+                                if (isNozUp)
+                                    SetState(States.Fueling);
+                                else
+                                    SetState(States.LiftNoz);
+                            }
+                            else
+                                SetState(States.CardCheck);
+                            
                         }
                         else
                         {
@@ -158,6 +169,11 @@ namespace DelekOPTSimulation
                     else if (key == 'O')  //OK
                     {                        
                         UpdatePrompt("$");
+                        if (Self.Checked)
+                        {
+                            SetState(States.ID);
+                            return;
+                        }
                         if (CardTypes.LAMPrompts == GetCardType())
                             SetState(States.Odometer);
                         else if (bCashPay)
@@ -317,7 +333,12 @@ namespace DelekOPTSimulation
                         else
                         {
                             UpdatePrompt("$");
-                            SetState(States.DropConfirmation);
+                            if (ManagerForDrop.Checked)
+                            {
+                                SetState(States.ManApprovalDrop);
+                            }
+                            else
+                                SetState(States.DropConfirmation);
                         }
                     }
                     else
@@ -377,115 +398,7 @@ namespace DelekOPTSimulation
                     }
 
                     break;
-                    /* using menu
-                    case States.FSMenu1:
-
-                        switch (key)
-                        {
-                            case 'X':
-                                SetState(States.FSIdle);
-                                break;
-                            case 'A':
-                                SetState(States.FSMenu2);
-                                break;
-                            case 'B':
-                                action = States.SafeDrop;
-                                SetState(States.RequestAttn);
-                                break;
-                            case 'C':
-                                action = States.DrySale;
-                                SetState(States.RequestAttn);
-                                break;
-                            case 'D':
-                                SetState(States.PrintingRecipt);
-                                break;
-                        }
-                        break;
-                    case States.FSMenu2:
-                        switch (key)
-                        {
-                            case 'X':
-                                SetState(States.FSIdle);
-                                break;
-                            case 'A':
-                                SetState(States.FSMenu3);
-                                break;
-                            case 'B':
-                                action = States.TestFuel;
-                                SetState(States.RequestMan);
-                                break;
-                            case 'C':
-                                SetState(States.TBD);
-                                break;
-                            case 'D':
-                                SetState(States.ShiftMenu);
-                                break;
-                        }
-                        break;
-                    case States.FSMenu3:
-                        switch (key)
-                        {
-                            case 'X':
-                                SetState(States.FSIdle);
-                                break;
-                            case 'A':
-                                SetState(States.FSMenu4);
-                                break;
-                            case 'B':                            
-                                SetState(States.TBD);
-                                break;
-                            case 'C':                            
-                                SetState(States.TBD);
-                                break;
-                            case 'D':
-                                SetState(States.TBD);
-                                break;
-                        }
-                        break;
-                    case States.FSMenu4:
-                        switch (key)
-                        {
-                            case 'X':
-                                SetState(States.FSIdle);
-                                break;
-                            case 'A':
-                                //SetState(States.TBD);
-                                break;
-                            case 'B':                            
-                                //SetState(States.TBD);
-                                break;
-                            case 'C':                            
-                                //SetState(States.TBD);
-                                break;
-                            case 'D':
-                                SetState(States.BlockNoz);
-                                break;
-                        }
-                        break;
-                    
-                    case States.ShiftMenu:
-                        switch (key)
-                        {
-                            case 'X':
-                                SetState(States.FSIdle);
-                                break;
-                            case 'A':
-                                SetState(States.TBD);
-                                break;
-                            case 'B':
-                                action = States.TestFuel;
-                                SetState(States.TBD);
-                                break;
-                            case 'C':
-                                action = States.XReport;
-                                SetState(States.RequestAttn);
-                                break;
-                            case 'D':
-                                SetState(States.TBD);
-                                break;
-                        }
-                         */
-                    break;
+                  
                 case States.BlockNoz:
                     if (key == 'X')
                         SetState(States.FSIdle);
@@ -551,6 +464,10 @@ namespace DelekOPTSimulation
                     if (key == 'X')
                         SetState(States.FSIdle);
                     break;
+                case States.AirDrange:
+                    if (key == 'X')
+                        SetState(States.FSIdle);
+                    break;
 
                 case States.MenuMode:
                     MarkMenu(menuindex, false);
@@ -583,10 +500,26 @@ namespace DelekOPTSimulation
                             SetState(States.FSIdle);
                         }
                     }
-                    if (key == 'B')
+                    
+                    if (key == 'A') //next ppage
+                    {
+                        menupage--;
+                        if (menupage == 0)
+                            menupage = maxpage;
+                        ClearMenu();
+                        StartMenu(currentmenu,false);
+                    }
+                    if (key == 'B') //next ppage
+                    {
+                        menupage++;
+                        ClearMenu();
+                        StartMenu(currentmenu, false);
+                    }
+                    if (key == 'D')
                     {
                         //up / next key
                         menuindex++;
+                        
                         if (menuindex>maxmenu)
                         {
                             //move to next page
@@ -604,6 +537,18 @@ namespace DelekOPTSimulation
 
                     }
                     MarkMenu(menuindex, true);
+                    break;
+                case States.RequestSerailMOP:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.SSIdle);
+                    }
+                    else if (key == 'O')  //OK
+                    {
+                        SetState(States.LiftNoz);
+                    }
+                    else
+                        HandlePrompt(key, "Int");
                     break;
                     
 

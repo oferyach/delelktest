@@ -223,6 +223,7 @@ namespace DelekOPTSimulation
                 MarkMenu(i, false);
                 SetMenu("", i);
             }
+            
         }
 
         
@@ -520,6 +521,18 @@ namespace DelekOPTSimulation
                     break;
                 case States.DropWarn:
                     image = "SafeDropAlert.png";
+                    break;
+                case States.AirDrange:
+                    image = "AirDrange.jpg";
+                    break;
+                case States.Err_BadCredit:
+                    image = "CreditError.jpg";
+                    break;
+                case States.ManApprovalDrop:
+                    image = "RequestMan.jpg";
+                    break;
+                case States.RequestSerailMOP:
+                    image = "OtherMOP.jpg";
                     break;
 
             }

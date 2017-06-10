@@ -30,12 +30,20 @@ namespace DelekOPTSimulation
         LAM,
         LAMPrompts,
         VIU,
-        BadCard
+        NoCredit,
+        BadCard,
+        OtherMOP
     };
     public partial class Main : Form
     {
         private void CardTag_Click(object sender, EventArgs e)
         {
+
+            if (CardTypes.NoCredit == GetCardType())
+            {
+                SetState(States.Err_BadCredit);
+                return;
+            }
             if (CardTypes.BadCard == GetCardType())
             {
                 SetState(States.BadCard);
@@ -47,8 +55,7 @@ namespace DelekOPTSimulation
                 if (!VIUAttn.Checked)
                 {
                     SetState(States.VISCheking);
-                    myTimer.Interval = 2000;
-                    myTimer.Start();
+                    SetShortMessage();
                 }
                 else
                 {
@@ -71,7 +78,10 @@ namespace DelekOPTSimulation
             {
                 case States.SSIdle:
                     if (CardTypes.Credit == GetCardType())
-                        SetState(States.ID);
+                    {
+                        SetState(States.Plate);
+                    }
+                     
                     else if (CardTypes.LAM == GetCardType())
                         SetState(States.CardCheck);
                     else if (CardTypes.LAMPrompts == GetCardType())
@@ -109,7 +119,7 @@ namespace DelekOPTSimulation
                     else //Full service need Attn card
                     {
                         if (CardTypes.Credit == GetCardType())
-                            SetState(States.ID);
+                            SetState(States.Plate);
                         else
                         {
                             if (CardTypes.Attn == GetCardType())
@@ -131,6 +141,31 @@ namespace DelekOPTSimulation
                     else
                         SetState(States.BadCard);
                     break;
+                case States.AirDrange:
+                    if (CardTypes.Attn == GetCardType())
+                    {
+                        action = States.AirDrange;
+                        SetState(States.LiftNoz);
+                    }
+                    else
+                        SetState(States.BadCard);
+                    break;
+                case States.ManApprovalDrop:
+                    if (CardTypes.Manager == GetCardType())
+                    {
+                        SetState(States.DropConfirmation);
+                    }
+                    else
+                        SetState(States.BadCard);
+                    break;
+                case States.RequestSerailMOP:
+                    if (CardTypes.OtherMOP == GetCardType())
+                    {
+                        SetState(States.LiftNoz);
+                    }
+                    else
+                        SetState(States.BadCard);
+                    break;
                 
             }
         }
@@ -146,6 +181,7 @@ namespace DelekOPTSimulation
                 case 4: return CardTypes.Manager;
                 case 5: return CardTypes.BadCard;
                 case 6: return CardTypes.VIU;
+                case 7: return CardTypes.OtherMOP;
                 default: return CardTypes.BadCard;
             }
         }
