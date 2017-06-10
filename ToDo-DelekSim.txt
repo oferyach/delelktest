@@ -1,0 +1,35 @@
+Changes in flow - Delek
+
+- Add "other means"
+- Full service after limit - does not accept Attn - Bug
+- Invalid - self service price even at full service
+- Dry selection menu
+- Clear dry sale when done - also if canceled - bug
+- Add validation of entries 
+	- Plate length
+	+ ID
+- Safe drop - add PIN or manager tag approval
+- Customer card (LAM) need attandant (two stage?)?
+- Bug: In dry sale ends no need in additional 'press O to end' after end - 
+- Bug: Need to select paymethod after dry sale ends
++ Add Image # on screen
+- Dynamic Text to put in config (station name) and add to graphic
+- Remove limit volume
+- Entre plate before ID
+- Bad ID - other message - "טעות בהקלדת תעודת זהות"
+- Add Credit card checking message...
++ No decimal in limit money
+- Cancel sale if with Delek must pay for delek
+- Dry sale in not entre qunatity - use 1 (not zero bug)
+- Flow after transactions that credit is not approved (request 200 fuel 400)
+- CLose fueling show attendant tag for dry sales or change MOP
+- Full service - limit amount - missing attn, card
+- Aftre calibration - no sales - BUG
+- Menu - first ask Card - remeber if manager to allow
++ Add flag to enable validation
+- Dalkan approval code - Add flow
+- Ignore Dalkan flow - ADD
+- Other pump - pay and operate
+
+
+--- Note - Message Arile Bold 36

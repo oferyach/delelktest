@@ -1,0 +1,36 @@
+<Configuration>
+	<General>		
+	</General>
+	<ItemsCat>
+		<Cat>
+			<Name>שמנים</Name>	
+			<Items>
+				<Item>
+					<Code>1</Code>
+					<Name>גלון 15</Name>
+					<Price>11</Price>
+				</Item>
+				<Item>
+					<Code>2</Code>
+					<Name>גלון 10</Name>
+					<Price>45</Price>
+				</Item>
+			</Items>	
+		</Cat>	
+		<Cat>
+			<Name>שונות</Name>	
+			<Items>
+				<Item>
+					<Code>11</Code>
+					<Name>שק שינה</Name>
+					<Price>12</Price>
+				</Item>
+				<Item>
+					<Code>12</Code>
+					<Name>סוללות</Name>
+					<Price>23</Price>
+				</Item>
+			</Items>	
+		</Cat>	
+	</ItemsCat>	
+</Configuration>

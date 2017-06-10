@@ -1,0 +1,22 @@
+﻿Version 2.0
+* Change menu type
+* Support Multi pump
+* Safe drop required
+* Safe drop warnning
+* Over safe drop
+* VIS require Attn
+* Flag is limit volume used
+* Last drop print - in menu
+* FS add Pay in store and other payment
+* FS - Cannot change credit MOP - no option to change
+* Change text to “Close shift” instead of “end of day” in the shift menu
+* Clock in /  out
+* Closing shift including open trans error and busy pumps
+* No comm to TR error (close shift, X Report)
+
+
+
+
+
+Version 1.0
+Initail version

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<style>
+
+    @font-face {
+        font-family: myFirstFont;
+        src: url(LiquidCrystal-Normal.otf);
+    }
+
+    .serif {
+        font-family: "Arial", Times, sans-serif;
+        font-size: 200%;
+        color: white;
+    }
+
+    .pricename {
+        font-family: "Arial", Times, sans-serif;
+        font-size: 120%;
+        color: #e9e9ea;
+    }
+
+    .pricevalue {
+        font-family: "Arial", Times, sans-serif;
+        font-size: 250%;
+        color: rgb(200, 200,200);
+    }
+
+
+    .digital {
+        font-family: "Liquid Crystal";
+        font-size: 330%;
+        color: white;
+    }
+    .sansserif {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 200%;
+        color: Black;
+    }
+	
+	.sansserifm {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 200%;
+        color: Black;
+		background-color:rgb(100,100,50);
+    }
+	
+	
+	.mpump {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 170%;
+        color: Red;
+    }
+
+
+    .centre {
+        width: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+        color: white;
+    }
+
+    
+
+</style>
+
+
+<html>
+<head>
+<script type="text/javascript">
+          function ShowMessage(message)
+          {
+               alert(message);
+          }
+		  function StopPlayer()
+		  {
+			var vid = document.getElementById("MediaPlayer"); 
+			vid.Stop();	
+		  }
+		  function StartPlayer()
+		  {
+			var vid = document.getElementById("MediaPlayer");
+			vid.currentTime = 0;			
+			vid.Play();	
+		  }
+</script>
+</head>
+<!-- oncontextmenu="return false;" -->
+<body background="BackMissing.jpg" unselectable="on" oncontextmenu="return false;" style="cursor: none">
+	<img id = "Screen" src="Idle.jpg" style="position:absolute; left:0px; top: 0px; " alt="" unselectable="on" />
+	
+	<div dir="rtl" style="position:absolute; right:290px; top: 10px; text-align:right" class="mpump" id="MultiPump" unselectable="on"></div>
+	
+	<span style="position:absolute; left:170px; top: 285px; text-align:left" class="sansserif" id="Prompt" unselectable="on"></span>
+	<span style="position:absolute; left:240px; top: 285px; text-align:left" class="sansserif" id="SPrompt" unselectable="on"></span>
+	<div dir="rtl" style="position:absolute; right:20px; top: 85px; text-align:right" class="sansserif" id="Line1" unselectable="on"></div>
+	<span dir="rtl" style="position:absolute; right:20px; top: 165px; text-align:right" class="sansserif" id="Line2" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:20px; top: 245px; text-align:right" class="sansserif" id="Line3" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:20px; top: 325px; text-align:right" class="sansserif" id="Line4" unselectable="on"></span>
+	
+	
+	<div dir="rtl" style="position:absolute; right:20px; top: 85px; text-align:right" class="sansserif" id="Menu1" unselectable="on"></div>
+	<div dir="rtl" style="position:absolute; right:290px; top: 85px; text-align:right" class="sansserif" id="Menu2" unselectable="on"></div>
+	<span dir="rtl" style="position:absolute; right:20px; top: 165px; text-align:right" class="sansserif" id="Menu3" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:290px; top: 165px; text-align:right" class="sansserif" id="Menu4" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:20px; top: 245px; text-align:right" class="sansserif" id="Menu5" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:290px; top: 245px; text-align:right" class="sansserif" id="Menu6" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:20px; top: 325px; text-align:right" class="sansserif" id="Menu7" unselectable="on"></span>
+	<span dir="rtl" style="position:absolute; right:290px; top: 325px; text-align:right" class="sansserif" id="Menu8" unselectable="on"></span>
+	
+	<div id="M1" style="visibility:hidden">
+		<OBJECT ID="MediaPlayer" style="position:absolute; right:0px; top: 0px; text-align:left" WIDTH="640" HEIGHT="480" CLASSID="CLSID:22D6F312-B0F6-11D0-94AB-0080C74C7E95" STANDBY="Loading Windows Media Player components..." TYPE="application/x-oleobject">
+			<PARAM NAME="FileName" VALUE="Master_Drinks_30sec.mp4">
+			<PARAM name="autostart" VALUE="true">
+			<PARAM name="ShowControls" VALUE="false">
+			<param name="ShowStatusBar" value="false">
+			<PARAM name="ShowDisplay" VALUE="false">
+			<param name='loop' value="true">
+			<EMBED TYPE="application/x-mplayer2" SRC="Master_Drinks_30sec.mp4" NAME="MediaPlayer" WIDTH="640" HEIGHT="480" ShowControls="0" ShowStatusBar="0" ShowDisplay="0" autostart="1" loop="true"> </EMBED>
+		</OBJECT>
+	</div>
+	
+</body>
+</html>
