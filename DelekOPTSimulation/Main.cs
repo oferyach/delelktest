@@ -84,6 +84,16 @@ namespace DelekOPTSimulation
         Err_BadCredit,
         AirDrange,
         ManApprovalDrop,
+        Refund,
+        RefundStore,
+        RefundInvoice,
+        RefundCash,
+        RefundCredit,
+        RefundSelectMOP,
+        Err_RefundStore,
+        Err_RefundInvoice,
+        Err_RefundNotAllowed,
+
         TBD
     };
 
@@ -329,6 +339,9 @@ namespace DelekOPTSimulation
                 case States.Err_BusyPumps:
                 case States.Err_CommXReport:
                 case States.Err_CommShift:
+                case States.Err_RefundNotAllowed:
+                case States.Err_RefundInvoice:
+                case States.Err_RefundStore:
                     if (backState == States.ReturnToIdle)
                     {
                         if (Self.Checked)
@@ -581,10 +594,15 @@ namespace DelekOPTSimulation
                     image = "SafeDrop.jpg";
                     break;
                 case States.DrySale:
+
+                    StartMenu(MenuType.DryListLevel1,true);
+                    SetState(States.MenuMode);                    
+                    /*
                     state = States.DrySale;
                     image = "DrySale.jpg";
                     l1 =  " סכום כולל " + totalsale.ToString("0.00");
                     SetLines("", "",l1, "", 0);
+                     */
                     break;
                 case States.GetProduct:
                     state = States.GetProduct;
@@ -764,6 +782,37 @@ namespace DelekOPTSimulation
                 case States.RequestSerailMOP:
                     state = States.RequestSerailMOP;
                     break;
+                case States.RefundStore:
+                    state = States.RefundStore;
+                    break;
+                case States.RefundInvoice:
+                    state = States.RefundInvoice;
+                    break;
+                case States.Refund:
+                    state = States.Refund;
+                    break;
+                case States.RefundCash:
+                    state = States.RefundCash;
+                    break;
+                case States.RefundCredit:
+                    state = States.RefundCredit;
+                    break;
+                case States.RefundSelectMOP:
+                    state = States.RefundSelectMOP;
+                    break;
+                case States.Err_RefundStore:
+                    state = States.Err_RefundStore;
+                    SetShortMessage();
+                    break;
+                case States.Err_RefundInvoice:
+                    state = States.Err_RefundInvoice;
+                    SetShortMessage();
+                    break;
+                case States.Err_RefundNotAllowed:
+                    state = States.Err_RefundNotAllowed;
+                    SetShortMessage();
+                    break;
+
 
             }
 

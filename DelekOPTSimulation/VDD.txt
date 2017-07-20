@@ -1,4 +1,8 @@
-﻿Version 2.0
+﻿Version 2.1
+
+* Refund flow - full or partial
+
+Version 2.0
 * Change menu type - multi pages
 * Support Multi pump
 * Safe drop required

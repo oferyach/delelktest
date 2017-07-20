@@ -486,55 +486,108 @@ namespace DelekOPTSimulation
                         //selected
                         SetMenuAction();
                     }
-                    if (key == 'X')
+                    if (currentmenu == Main.MenuType.DryListLevel1 || currentmenu == Main.MenuType.DryListLevel2)
                     {
-                        menuindex = 0;
-                        currentmenu = MenuType.None;
-                        ClearMenu();
-                        if (Self.Checked)
+                        if (key == 'X') //TBD verify dry sale cancelation
                         {
-                            SetState(States.SSIdle);
-                        }
-                        else
-                        {
-                            SetState(States.FSIdle);
-                        }
-                    }
-                    
-                    if (key == 'A') //next ppage
-                    {
-                        menupage--;
-                        if (menupage == 0)
-                            menupage = maxpage;
-                        ClearMenu();
-                        StartMenu(currentmenu,false);
-                    }
-                    if (key == 'B') //next ppage
-                    {
-                        menupage++;
-                        ClearMenu();
-                        StartMenu(currentmenu, false);
-                    }
-                    if (key == 'D')
-                    {
-                        //up / next key
-                        menuindex++;
-                        
-                        if (menuindex>maxmenu)
-                        {
-                            //move to next page
-                            menuindex=1;
-                        }
-                    }
-                    if (key == 'C')
-                    {
-                        //down / previous key
-                        menuindex--;
-                        if (menuindex==0)
-                        {
-                            menuindex = maxmenu;
+                            menuindex = 0;
+                            currentmenu = MenuType.None;
+                            ClearMenu();
+                            if (Self.Checked)
+                            {
+                                SetState(States.SSIdle);
+                            }
+                            else
+                            {
+                                SetState(States.FSIdle);
+                            }
                         }
 
+                        if (key == 'A') //end sale
+                        {
+                            bDrySale = true;
+                            if (bFuelIncluded && bCashPay)
+                                SetState(States.CashCredit);
+                            else
+                                SetState(States.FSReceipt);
+                        }
+                        if (key == 'B') //get code
+                        {
+                            SetState(States.GetProduct);
+                        }
+                        if (key == 'D')
+                        {
+                            //up / next key
+                            menuindex++;
+
+                            if (menuindex > maxmenu)
+                            {
+                                //move to next page
+                                menuindex = 1;
+                            }
+                        }
+                        if (key == 'C')
+                        {
+                            menupage--;
+                            if (menupage == 0)
+                                menupage = maxpage;
+                            ClearMenu();
+                            StartMenu(currentmenu, false);
+
+                        }
+                    }
+                    else
+                    {
+                        if (key == 'X')
+                        {
+                            menuindex = 0;
+                            currentmenu = MenuType.None;
+                            ClearMenu();
+                            if (Self.Checked)
+                            {
+                                SetState(States.SSIdle);
+                            }
+                            else
+                            {
+                                SetState(States.FSIdle);
+                            }
+                        }
+
+                        if (key == 'A') //next ppage
+                        {
+                            menupage--;
+                            if (menupage == 0)
+                                menupage = maxpage;
+                            ClearMenu();
+                            StartMenu(currentmenu, false);
+                        }
+                        if (key == 'B') //next ppage
+                        {
+                            menupage++;
+                            ClearMenu();
+                            StartMenu(currentmenu, false);
+                        }
+                        if (key == 'D')
+                        {
+                            //up / next key
+                            menuindex++;
+
+                            if (menuindex > maxmenu)
+                            {
+                                //move to next page
+                                menuindex = 1;
+                            }
+                        }
+                        if (key == 'C')
+                        {
+                            //down / previous key
+                            menuindex--;
+                            if (menuindex == 0)
+                            {
+                                menuindex = maxmenu;
+                            }
+
+                        }
                     }
                     MarkMenu(menuindex, true);
                     break;
@@ -549,6 +602,103 @@ namespace DelekOPTSimulation
                     }
                     else
                         HandlePrompt(key, "Int");
+                    break;
+                case States.RefundStore:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.FSIdle);
+                    }
+                    else
+                    {
+                        if (RefundStoreError.Checked)
+                        {
+                            SetState(States.Err_RefundStore);
+                        }
+                        else
+                        {
+                            SetState(States.RefundInvoice);
+                        }
+                    }
+                    break;
+                case States.RefundInvoice:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.FSIdle);
+                    }
+                    else
+                    {
+                        if (RefundInvoiceError.Checked)
+                        {
+                            SetState(States.Err_RefundInvoice);
+                        }
+                        else
+                        {
+                            if (RefundNotAllowed.Checked)
+                            {
+                                SetState(States.Err_RefundNotAllowed);
+                            }
+                            else
+                            SetState(States.Refund);
+                        }
+                    }
+                    break;
+                case States.Refund:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.FSIdle);
+                    }
+                    else
+                    {
+                        if (RefundCash.Checked)
+                        {
+                            SetState(States.RefundCash);
+                        }
+                        else
+                        {
+                            if (RefundCredit.Checked)
+                            {
+                                SetState(States.RefundCredit);
+                            }
+                            else
+                            {
+                                SetState(States.RefundSelectMOP);
+                            }
+                        }
+                    }
+                    break;
+                case States.RefundCash:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.FSIdle);
+                    }
+                    else
+                    {
+                        SetState(States.PrintingRecipt);
+                    }
+                    break;
+                case States.RefundCredit:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.FSIdle);
+                    }
+                    else
+                    {
+                        SetState(States.PrintingRecipt);
+                    }
+                    break;
+                case States.RefundSelectMOP:
+                    if (key == 'X')  //cancel
+                    {
+                        SetState(States.FSIdle);
+                    }
+                    if (key == 'D')
+                    {                        
+                        SetState(States.RefundCash); 
+                    }
+                    if (key == 'C')
+                    {
+                        SetState(States.RefundCredit);
+                    }
                     break;
                     
 

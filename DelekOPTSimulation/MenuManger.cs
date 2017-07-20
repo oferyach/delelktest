@@ -34,7 +34,8 @@ namespace DelekOPTSimulation
             None,
             Attendant,
             ShiftMng,
-            DryList,
+            DryListLevel1,
+            DryListLevel2,
             OtherMOP,
             TBD
         };
@@ -87,6 +88,10 @@ namespace DelekOPTSimulation
                     maxpage = 1;
                     BuildOtherMOPMenu();
                     break;
+                case MenuType.DryListLevel1:
+                    BuildAndSetDryListLevel1();
+                    break;
+
             };
         }
 
@@ -153,6 +158,40 @@ namespace DelekOPTSimulation
             MarkMenu(menuindex, true);
         }
 
+
+        public void BuildAndSetDryListLevel1()
+        {
+
+            SetMenu("משקאות קרים", 1);
+            SetMenu("עיתונים", 2);
+            SetMenu("שמנים", 3);
+
+            menuindex = 1;
+            maxmenu = 3;
+            menupage = 1;
+
+            currentmenu = MenuType.DryListLevel1;
+
+            MarkMenu(menuindex, true);
+        }
+
+        public void BuildAndSetDryListLevel2()
+        {
+
+            SetMenu("קולה",1);
+            SetMenu("ספריט", 2);
+            SetMenu("מי עדן", 3);
+            SetMenu("עין גדי שישיה", 3);
+
+            menuindex = 1;
+            maxmenu = 3;
+            menupage = 1;
+
+            currentmenu = MenuType.DryListLevel2;
+
+            MarkMenu(menuindex, true);
+        }
+
         public void SetMenuAction()
         {
             MarkMenu(menuindex, false);
@@ -186,6 +225,8 @@ namespace DelekOPTSimulation
                                 case 6: //VIS excpetion
                                     break;
                                 case 7: //returns
+                                    action = States.RefundStore;
+                                    SetState(States.RequestAttn);
                                     break;
                                 case 8:
                                     SetState(States.PrintingRecipt);
@@ -265,6 +306,10 @@ namespace DelekOPTSimulation
                 case MenuType.OtherMOP:
                     action = States.OtherMOP;
                     SetState(States.RequestSerailMOP);
+                break;
+                case MenuType.DryListLevel1:
+                    BuildAndSetDryListLevel2();
+                    SetState(States.MenuMode);
                 break;
                         
             }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using DelekOPTSimulation;
 
 namespace DelekOPTSimulation
 {
@@ -511,7 +512,12 @@ namespace DelekOPTSimulation
                     break;
 
                 case States.MenuMode:
-                    image = "MenuMode.jpg";
+                    if (main.currentmenu == Main.MenuType.DryListLevel1 || main.currentmenu == Main.MenuType.DryListLevel2)
+                    {
+                        image = "DrySaleMenu.png";
+                    }
+                    else
+                        image = "MenuMode.jpg";
                     break;
                 case States.NeedDrop:
                     image = "SafeDropCantFuel.png";
@@ -533,6 +539,33 @@ namespace DelekOPTSimulation
                     break;
                 case States.RequestSerailMOP:
                     image = "OtherMOP.jpg";
+                    break;
+                case States.RefundStore:
+                    image = "RefundStoreCode.png";
+                    break;
+                case States.RefundInvoice:
+                    image = "RefundInvoiceNo.png";
+                    break;
+                case States.Refund:
+                    image = "RefundSelectItem.png";
+                    break;
+                case States.RefundCash:
+                    image = "RefundCash.png";
+                    break;
+                case States.RefundCredit:
+                    image = "RefundCredit.png";
+                    break;
+                case States.RefundSelectMOP:
+                    image = "RefundSelectMOP.png";
+                    break;
+                case States.Err_RefundStore:
+                    image = "RefundNoStore.png";
+                    break;
+                case States.Err_RefundInvoice:
+                    image = "RefundNoInvoice.png";
+                    break;
+                case States.Err_RefundNotAllowed:
+                    image = "RefundNoAllowed.png";
                     break;
 
             }

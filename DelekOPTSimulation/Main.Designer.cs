@@ -66,10 +66,18 @@
             this.CommErrTR = new System.Windows.Forms.CheckBox();
             this.ManagerForDrop = new System.Windows.Forms.CheckBox();
             this.BadCredit = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.RefundStoreError = new System.Windows.Forms.CheckBox();
+            this.RefundInvoiceError = new System.Windows.Forms.CheckBox();
+            this.RefundNotAllowed = new System.Windows.Forms.CheckBox();
+            this.RefundCash = new System.Windows.Forms.RadioButton();
+            this.RefundCredit = new System.Windows.Forms.RadioButton();
+            this.RefundSelect = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.Pump.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Noz)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // Exit
@@ -487,6 +495,86 @@
             this.BadCredit.Text = "אשראי לא מאושר";
             this.BadCredit.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.RefundSelect);
+            this.groupBox3.Controls.Add(this.RefundCredit);
+            this.groupBox3.Controls.Add(this.RefundCash);
+            this.groupBox3.Controls.Add(this.RefundNotAllowed);
+            this.groupBox3.Controls.Add(this.RefundInvoiceError);
+            this.groupBox3.Controls.Add(this.RefundStoreError);
+            this.groupBox3.Location = new System.Drawing.Point(13, 374);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.groupBox3.Size = new System.Drawing.Size(358, 106);
+            this.groupBox3.TabIndex = 51;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "החזר";
+            // 
+            // RefundStoreError
+            // 
+            this.RefundStoreError.AutoSize = true;
+            this.RefundStoreError.Location = new System.Drawing.Point(260, 31);
+            this.RefundStoreError.Name = "RefundStoreError";
+            this.RefundStoreError.Size = new System.Drawing.Size(88, 17);
+            this.RefundStoreError.TabIndex = 0;
+            this.RefundStoreError.Text = "טעות בתחנה";
+            this.RefundStoreError.UseVisualStyleBackColor = true;
+            // 
+            // RefundInvoiceError
+            // 
+            this.RefundInvoiceError.AutoSize = true;
+            this.RefundInvoiceError.Location = new System.Drawing.Point(158, 31);
+            this.RefundInvoiceError.Name = "RefundInvoiceError";
+            this.RefundInvoiceError.Size = new System.Drawing.Size(100, 17);
+            this.RefundInvoiceError.TabIndex = 1;
+            this.RefundInvoiceError.Text = "טעות חשבונית";
+            this.RefundInvoiceError.UseVisualStyleBackColor = true;
+            // 
+            // RefundNotAllowed
+            // 
+            this.RefundNotAllowed.AutoSize = true;
+            this.RefundNotAllowed.Location = new System.Drawing.Point(34, 31);
+            this.RefundNotAllowed.Name = "RefundNotAllowed";
+            this.RefundNotAllowed.Size = new System.Drawing.Size(106, 17);
+            this.RefundNotAllowed.TabIndex = 2;
+            this.RefundNotAllowed.Text = "לא ניתן להחזיר";
+            this.RefundNotAllowed.UseVisualStyleBackColor = true;
+            // 
+            // RefundCash
+            // 
+            this.RefundCash.AutoSize = true;
+            this.RefundCash.Checked = true;
+            this.RefundCash.Location = new System.Drawing.Point(294, 68);
+            this.RefundCash.Name = "RefundCash";
+            this.RefundCash.Size = new System.Drawing.Size(54, 17);
+            this.RefundCash.TabIndex = 3;
+            this.RefundCash.TabStop = true;
+            this.RefundCash.Text = "מזומן";
+            this.RefundCash.UseVisualStyleBackColor = true;
+            // 
+            // RefundCredit
+            // 
+            this.RefundCredit.AutoSize = true;
+            this.RefundCredit.Location = new System.Drawing.Point(197, 68);
+            this.RefundCredit.Name = "RefundCredit";
+            this.RefundCredit.Size = new System.Drawing.Size(61, 17);
+            this.RefundCredit.TabIndex = 4;
+            this.RefundCredit.TabStop = true;
+            this.RefundCredit.Text = "אשראי";
+            this.RefundCredit.UseVisualStyleBackColor = true;
+            // 
+            // RefundSelect
+            // 
+            this.RefundSelect.AutoSize = true;
+            this.RefundSelect.Location = new System.Drawing.Point(46, 68);
+            this.RefundSelect.Name = "RefundSelect";
+            this.RefundSelect.Size = new System.Drawing.Size(94, 17);
+            this.RefundSelect.TabIndex = 5;
+            this.RefundSelect.TabStop = true;
+            this.RefundSelect.Text = "בחירת אמצעי";
+            this.RefundSelect.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -494,6 +582,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(724, 762);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.BadCredit);
             this.Controls.Add(this.ManagerForDrop);
             this.Controls.Add(this.CommErrTR);
@@ -526,6 +615,8 @@
             this.Pump.ResumeLayout(false);
             this.Pump.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Noz)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,6 +662,13 @@
         public System.Windows.Forms.CheckBox CommErrTR;
         public System.Windows.Forms.CheckBox ManagerForDrop;
         public System.Windows.Forms.CheckBox BadCredit;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton RefundSelect;
+        private System.Windows.Forms.RadioButton RefundCredit;
+        private System.Windows.Forms.RadioButton RefundCash;
+        private System.Windows.Forms.CheckBox RefundNotAllowed;
+        private System.Windows.Forms.CheckBox RefundInvoiceError;
+        private System.Windows.Forms.CheckBox RefundStoreError;
     }
 }
 
